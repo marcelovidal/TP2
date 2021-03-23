@@ -1,6 +1,32 @@
-// Importo la función "imprimir" desde "utils.js".
-// Notar el uso de "desestructuración".
-import { imprimir } from './utils';
+'use strict'
+
+/**
+ * Imprimir por consola y en la página.
+ *
+ * @param  {...any} variables Variables a imprimir
+ */
+function imprimir(...variables) {
+    // Imprimo por consola:
+    console.info(...variables);
+
+    // Obtengo el contenedor para la consola buscando
+    // el elemento con ID "consola-html" (en el index.html):
+    const consola = document.getElementById('consola-html');
+
+    // Creo elemento HTML <hr> para mostrar una línea de
+    // separación:
+    consola.appendChild(document.createElement('hr'));
+
+    // Creo elemento HTML <pre>:
+    const linea = document.createElement('pre');
+
+    // Uno las variables con "join" separando con un espacio
+    // y lo asigno al contenido del elemnto HTML <pre> creado:
+    linea.innerText = variables.join(' ');
+
+    // Agrego al contenedor "consola":
+    consola.appendChild(linea);
+}
 
 // Al iniciar, borro lo que hay en la consola actualmente:
 console.clear();
@@ -33,7 +59,41 @@ console.clear();
 //     'Contraseña incorrecta' si la misma es
 //     incorrecta.
 
-imprimir('Usuario [username] ha iniciado sesión');
+
+
+class User {
+    username = null;
+    age = Number(null);
+    password = null;
+    loggedIn = false;
+
+
+    constructor(username, password, age, loggedIn) {
+        this.username = username;
+        this.age = age;
+        this.password = password;
+        this.loggedIn = loggedIn;
+    }
+
+}
+class UsuarioEjemplo extends User {
+    username = "Marcelo";
+    edad = Number(41);
+    password = "miclave";
+    loggedIn = false;
+    login() {
+        if (this.password) {
+            this.loggedIn = true;
+            imprimir('Usuario', this.username, 'ha iniciado sesión');
+        } else {
+            console.log('No ha podido acceder')
+        }
+    };
+}
+
+
+const usuario = new UsuarioEjemplo();
+
 
 // =====================================================
 // 2. Crear la clase "Vendedor" a partir de la clase
@@ -45,12 +105,47 @@ imprimir('Usuario [username] ha iniciado sesión');
 // por parámetro. Las ventas deben guardarse en un array
 // de ventas interno de la instancia.
 //
-// Para poder realizar la cción de "vender", el usuario
+// Para poder realizar la acción de "vender", el usuario
 // debe haber iniciado sesión mediante el método
 // "login()" definido en la clase padre.
 //
 // Documentación recomendada:
 //   - https://developer.mozilla.org/es/docs/Web/JavaScript/Referencia/Objetos_globales/Array/push
+
+
+
+
+
+class UsuarioVendedor extends User {
+    username = "Marcelo Vendedor";
+    edad = Number(21);
+    password = "miclaveVendedor";
+    loggedIn = false;
+
+    login() {
+        if (this.password) {
+            this.loggedIn = true;
+            imprimir('Usuario', this.username, 'ha iniciado sesión');
+        } else {
+            console.log('No ha podido acceder')
+        };
+    };
+    carro = [];
+    vender() {
+        if (this.username) {
+            this.loggedIN = true;
+            this.carro.push('uva');
+            imprimir('El vendedor', this.username, 'ha vendido', this.carro);
+        } else {
+            imprimir('El vendedor', this.username, 'no ha realizado ventas', this.carro);
+        };
+    };
+
+};
+
+
+const vendedor = new UsuarioVendedor();
+
 
 // =====================================================
 // 3. Crear la clase "Comprador" a partir de la clase
@@ -69,17 +164,64 @@ imprimir('Usuario [username] ha iniciado sesión');
 // producto vendido al vendedor, e imprimir el siguiente
 // texto de ejemplo:
 
-imprimir([
-  'El vendedor [vendedor.username]',
-  ' ha vendido [descripción producto]',
-  ' a [comprador.username]',
-]);
+
+class UsuarioComprador extends User {
+    username = "Marcelo Comprador";
+    edad = Number(15);
+    password = "miclaveComprador";
+    loggedIn = false;
+    login() {
+        if (this.password) {
+            this.loggedIn = true;
+            imprimir('Usuario', this.username, 'ha iniciado sesión');
+        } else {
+            console.log('No ha podido acceder')
+        };
+    };
+    objVende = {
+        username = "Marcelo Vendedor",
+    }
+    product = [];
+    comprar(objVende, product) {
+            //verifico que el comprador este logueado
+            if (this.loggedIn) {
+                // asigno la compra al objeto vendedor
+                objVende.vender(product);
+                // impresion de la compra
+                imprimir([
+                    'El vendedor ' + objVende.username,
+                    ' ha vendido ' + product,
+                    ' a ' + this.username,
+                ]);
+            }
+        }
+        // carro = [];
+        // comprar(objVendedor, carro) {
+        //     objVendedor = "Marcelo Vendedor";
+        //     carro = [];
+        //     if (this.username) {
+        //         this.loggedIN = true;
+        //         this.carro.push('uva');
+        //         imprimir('El cliente', this.username, 'ha comprado', this.carro, 'al vendedor', this.objVendedor);
+        //     } else {
+        //         imprimir('El cliente', this.username, 'no ha realizado ninguna compra', this.carro);
+        //     };
+
+    // };
+
+}
+
+const comprador = new UsuarioComprador('Marcelo Comprador', 'miclaveComprador', 14, true);
+
+
+
 
 // =====================================================
 // 4. Modificar las clases anteriores y agregar un
 // "constructor" que reciba por parámetros
 // los valores de las propiedades "username",
 // "password" y "age".
+
 
 // =====================================================
 // 5. Modificar las clases anteriores y agregar un
@@ -93,3 +235,22 @@ imprimir([
 // para hacer "login()". Si no es mayor de edad, debe
 // mostrar un mensaje "Debes ser mayor de edad" e
 // impedir el "login()" definido en "User".
+
+class Figura {
+    rellenar() {
+        console.info('Pintando figura');
+    }
+    dibujar() {
+        console.info('Dibujando')
+        this.rellenar();
+    }
+}
+class Cuadrado extends Figura {
+
+    dibujar() {
+        console.info('Dibujando un cuadrado')
+        this.rellenar();
+    }
+}
+const fig = new Figura();
+const cua = new Cuadrado();
