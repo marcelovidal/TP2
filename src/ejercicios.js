@@ -65,8 +65,6 @@ class User {
     username = null;
     age = Number(null);
     password = null;
-    loggedIn = false;
-
 
     constructor(username, password, age, loggedIn) {
         this.username = username;
@@ -74,21 +72,24 @@ class User {
         this.password = password;
         this.loggedIn = loggedIn;
     }
+    login(username, password) {
+        if (this.username === username && this.password === password) {
+            this.loggedIn = true;
+            imprimir('Usuario', this.username, 'ha iniciado sesión');
+        } else {
+            this.loggedIn = false;
+            imprimir('Usuario', this.username, 'no puede acceder');
+        }
+
+    }
 
 }
 class UsuarioEjemplo extends User {
     username = "Marcelo";
-    edad = Number(41);
+    age = Number(41);
     password = "miclave";
     loggedIn = false;
-    login() {
-        if (this.password) {
-            this.loggedIn = true;
-            imprimir('Usuario', this.username, 'ha iniciado sesión');
-        } else {
-            console.log('No ha podido acceder')
-        }
-    };
+
 }
 
 
@@ -118,18 +119,9 @@ const usuario = new UsuarioEjemplo();
 
 class UsuarioVendedor extends User {
     username = "Marcelo Vendedor";
-    edad = Number(21);
+    age = Number(21);
     password = "miclaveVendedor";
     loggedIn = false;
-
-    login() {
-        if (this.password) {
-            this.loggedIn = true;
-            imprimir('Usuario', this.username, 'ha iniciado sesión');
-        } else {
-            console.log('No ha podido acceder')
-        };
-    };
     carro = [];
     vender() {
         if (this.username) {
@@ -142,8 +134,6 @@ class UsuarioVendedor extends User {
     };
 
 };
-
-
 const vendedor = new UsuarioVendedor();
 
 
@@ -170,45 +160,6 @@ class UsuarioComprador extends User {
     edad = Number(15);
     password = "miclaveComprador";
     loggedIn = false;
-    login() {
-        if (this.password) {
-            this.loggedIn = true;
-            imprimir('Usuario', this.username, 'ha iniciado sesión');
-        } else {
-            console.log('No ha podido acceder')
-        };
-    };
-    objVende = {
-        username = "Marcelo Vendedor",
-    }
-    product = [];
-    comprar(objVende, product) {
-            //verifico que el comprador este logueado
-            if (this.loggedIn) {
-                // asigno la compra al objeto vendedor
-                objVende.vender(product);
-                // impresion de la compra
-                imprimir([
-                    'El vendedor ' + objVende.username,
-                    ' ha vendido ' + product,
-                    ' a ' + this.username,
-                ]);
-            }
-        }
-        // carro = [];
-        // comprar(objVendedor, carro) {
-        //     objVendedor = "Marcelo Vendedor";
-        //     carro = [];
-        //     if (this.username) {
-        //         this.loggedIN = true;
-        //         this.carro.push('uva');
-        //         imprimir('El cliente', this.username, 'ha comprado', this.carro, 'al vendedor', this.objVendedor);
-        //     } else {
-        //         imprimir('El cliente', this.username, 'no ha realizado ninguna compra', this.carro);
-        //     };
-
-    // };
-
 }
 
 const comprador = new UsuarioComprador('Marcelo Comprador', 'miclaveComprador', 14, true);
@@ -254,3 +205,36 @@ class Cuadrado extends Figura {
 }
 const fig = new Figura();
 const cua = new Cuadrado();
+
+
+
+//objVende = {
+//  username = "Marcelo Vendedor",
+//}
+//product = [];
+//comprar(objVende, product) {
+//verifico que el comprador este logueado
+//      if (this.loggedIn) {
+// asigno la compra al objeto vendedor
+//        objVende.vender(product);
+// impresion de la compra
+//      imprimir([
+//        'El vendedor ' + objVende.username,
+//      ' ha vendido ' + product,
+//    ' a ' + this.username,
+//]);
+//}
+//}
+// carro = [];
+// comprar(objVendedor, carro) {
+//     objVendedor = "Marcelo Vendedor";
+//     carro = [];
+//     if (this.username) {
+//         this.loggedIN = true;
+//         this.carro.push('uva');
+//         imprimir('El cliente', this.username, 'ha comprado', this.carro, 'al vendedor', this.objVendedor);
+//     } else {
+//         imprimir('El cliente', this.username, 'no ha realizado ninguna compra', this.carro);
+//     };
+
+// };
