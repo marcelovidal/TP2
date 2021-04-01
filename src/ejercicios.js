@@ -52,7 +52,7 @@ class User {
             imprimir('Usuario o contraseña incorrecta');
         }
     };
-    esMayor(age) {
+    esMayor() {
         if (age >= 18) {
             imprimir(this.username, 'es mayor de edad');
         } else {
